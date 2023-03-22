@@ -18,7 +18,7 @@
     }
 
 // Read
-    $query = $pdo->prepare("SELECT * FROM customers");
+    $query = $pdo->prepare("SELECT * FROM customers WHERE flag = 0");
     $query->execute();
     $result = $query->fetchAll(PDO::FETCH_OBJ);
 
@@ -34,7 +34,8 @@ if (isset($_POST['edit'])) {
 
 // Delete
 if (isset($_POST['delete'])) {
-    $query = "DELETE FROM customers WHERE id=?";
+    // $query = "DELETE FROM customers WHERE id=?";
+    $query = "UPDATE customers SET flag = 1 WHERE id=?";
     $result = $pdo->prepare($query);
     $result->execute(array($get_id));
     if ($result) {
